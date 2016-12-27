@@ -1,0 +1,26 @@
+{
+  "name": "Colors",
+  "authors": [
+    "silvandiepen <me@silvandiepen.com>"
+  ],
+  "description": "Angular service to calculate colors",
+  "main": "colors.js",
+  "keywords": [
+    "colors",
+    "calculate",
+    "angular",
+    "javascript",
+    "hex",
+    "rgb",
+    "cmyk"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

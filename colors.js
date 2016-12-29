@@ -95,11 +95,9 @@
             function isValidHex(hex) {
                 var pass = true;
                 for (var i = 0; i < 6; i++) {
-                    if (validHex.indexOf(hex.charAt(i)) != -1) {
-                        hex += input.charAt(i);
-                    } else {
+                    if (validHex.indexOf(hex.charAt(i)) === -1) {
                         pass = false;
-                    }
+                    } 
                 }
                 if (pass) {
                   return true;

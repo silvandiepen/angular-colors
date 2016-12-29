@@ -107,7 +107,7 @@
         
         self.returnHex = function isHex(input) {
 					if(self.isHex(input)){
-						if (hex.charAt(0) === '#') {
+						if (input.charAt(0) === '#') {
 	           return input.substr(1, 7);
             } else {
 	           return input;

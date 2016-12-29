@@ -10,6 +10,10 @@
         'use strict';
 
         var self = this;
+        
+        // Variables
+     		var validHex = '01234567890ABCDEFabcdef';
+
 
         // RGB to CMYK
 

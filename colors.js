@@ -119,15 +119,28 @@
                 result.m = Math.round(result.m * 100);
                 result.y = Math.round(result.y * 100);
                 result.k = Math.round(result.k * 100);
-
                 return result;
 
             };
-            // RGB to HEX
 
-            self.rgbToHex = function rgbToHex(input) {
-                var rgb = self.hexToRgb(input);
-                var color = (rgb && rgb.length === 3) ? "#" +
+            self.cmykToRgb = function cmykToRgb(cmyk) {
+              var rgb;
+              rgb[0] = 255 - ((Math.min(1, cmyk[0] * (1 - cmyk[3]) + cmyk[3])) * 255);
+              rgb[1] = 255 - ((Math.min(1, cmyk[1] * (1 - cmyk[3]) + cmyk[3])) * 255);
+              rgb[2] = 255 - ((Math.min(1, cmyk[2] * (1 - cmyk[3]) + cmyk[3])) * 255);
+              return rgb;
+            };
+
+            self.cmykToHex = function cmykToHex(cmyk){
+              console.log(cmyk);
+              return cmyk;
+              // var rgb = self.cmykToRgb(cmyk);
+              // return rgbToHex(rgb);
+            };
+
+            // RGB to HEX
+            self.rgbToHex = function rgbToHex(rgb) {
+                var color = (rgb && rgb.length === 3) ? "" +
                     ("0" + parseInt(rgb[0], 10).toString(16)).slice(-2) +
                     ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
                     ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) : '';
@@ -135,7 +148,6 @@
             };
 
             // RGB to Pantone
-
             self.rgbToPantone = function rgbToPantone(input) {
                 var color = input;
                 return color;
@@ -143,9 +155,8 @@
 
             // Hex to RGB
 
-            self.hexToRgb = function hexToRgb(hex, opacity) {
+            self.hexToRgb = function hexToRgb(hex) {
                 var tint = tint | 'all';
-                opacity = opacity | 1;
                 hex = hex.replace('#', '');
                 var color = {
                     red: parseInt(hex.substring(0, 2), 16),
@@ -195,28 +206,28 @@
             };
 
             self.makeArray = function makeList(input) {
-                var list;
                 if (input.split(' ').length > 0) {
                     return input.split(' ');
                 } else if (input.split(',').length > 0) {
                     return input.split(',');
-                } else if (input.split(', ').length > 0) {
-                    return input.split(', ');
                 } else {
                     return false;
                 }
             };
 
             self.isRgb = function isRgb(input, returner) {
-	              var rgb = self.makeArray(input);
+                var rgb = self.makeArray(input);
                 if (rgb.length === 3) {
                     var pass = true;
                     angular.forEach(rgb, function(value, key) {
-                        if (value > 255 && value < 0) {
+                        if (parseInt(value) > 255 && parseInt(value) < 0) {
                             pass = false;
                         }
                     });
                     if (pass && returner) {
+                        for (var i = 0; i < 3; i++) {
+                            rgb[i] = parseInt(rgb[i], 10);
+                        }
                         return rgb;
                     } else if (pass) {
                         return true;
@@ -228,7 +239,35 @@
                 }
             };
             self.returnRgb = function returnRgb(input) {
-                return isRgb(input, true);
+                return self.isRgb(input, true);
+            };
+
+
+            self.isCmyk = function isCmyk(input, returner) {
+                var cmyk = self.makeArray(input);
+                if (cmyk.length === 4) {
+                    var pass = true;
+                    angular.forEach(cmyk, function(value, key) {
+                        if (parseInt(value) > 255 && parseInt(value) < 0) {
+                            pass = false;
+                        }
+                    });
+                    if (pass && returner) {
+                        for (var i = 0; i < 4; i++) {
+                            cmyk[i] = parseInt(cmyk[i], 10);
+                        }
+                        return cmyk;
+                    } else if (pass) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            };
+            self.returnCmyk = function returnCmyk(input) {
+                return self.isCmyk(input, true);
             };
 
             return self;

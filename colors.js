@@ -73,6 +73,49 @@
             };
             return color;
         };
+        
+        
+        self.isHex = function isHex(input) {
+            if (input.length === 7) {
+                if (input.charAt(0) === '#') {
+                    return isValidHex(input.substr(1, 7));
+                } else {
+                    return false;
+                }
+            } else if (input.length === 6) {
+                return isValidHex(input);
+            } else {
+                return false;
+            }
+
+            function isValidHex(hex) {
+                var pass = true;
+                for (var i = 0; i < 6; i++) {
+                    if (validHex.indexOf(hex.charAt(i)) != -1) {
+                        hex += input.charAt(i);
+                    } else {
+                        pass = false;
+                    }
+                }
+                if (pass) {
+                  return true;
+                }
+            }
+        };
+        
+        self.returnHex = function isHex(input) {
+					if(self.isHex(input)){
+						if (hex.charAt(0) === '#') {
+	           return input.substr(1, 7);
+            } else {
+	           return input;
+	          }
+					} else {
+						return false;
+					}
+        };
+        
+        return self;
 
     }]);
     

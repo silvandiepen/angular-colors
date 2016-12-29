@@ -194,6 +194,43 @@
                 }
             };
 
+            self.makeArray = function makeList(input) {
+                var list;
+                if (input.split(' ').length > 0) {
+                    return input.split(' ');
+                } else if (input.split(',').length > 0) {
+                    return input.split(',');
+                } else if (input.split(', ').length > 0) {
+                    return input.split(', ');
+                } else {
+                    return false;
+                }
+            };
+
+            self.isRgb = function isRgb(input, returner) {
+	              var rgb = self.makeArray(input);
+                if (rgb.length === 3) {
+                    var pass = true;
+                    angular.forEach(rgb, function(value, key) {
+                        if (value > 255 && value < 0) {
+                            pass = false;
+                        }
+                    });
+                    if (pass && returner) {
+                        return rgb;
+                    } else if (pass) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            };
+            self.returnRgb = function returnRgb(input) {
+                return isRgb(input, true);
+            };
+
             return self;
 
         }]);

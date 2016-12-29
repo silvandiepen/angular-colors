@@ -1,9 +1,16 @@
-angular.module('colors')
+/*!
+ * angular-ratio.js v0.0.1 - A standalone AngularJS implementation to resize elements into certain ratios
+ * Copyright (c) 2016 Sil van Diepen - http://github.com/silvandiepen/angular-ratio
+ * License: MIT
+*/
+
+(function(window, angular, undefined) {
+  angular.module('colors',[])
     .service('colors', [function() {
         'use strict';
 
         var self = this;
-        
+
         // RGB to CMYK
 
         self.hexToCmyk = function hexToCmyk(hex) {
@@ -15,7 +22,7 @@ angular.module('colors')
             b = rgb.b / 255;
             max = Math.max(r, g, b);
             k = 1 - max;
-            
+
             if (k !== 1) {
                 c = (1 - r - k) / (1 - k);
                 m = (1 - g - k) / (1 - k);
@@ -34,9 +41,9 @@ angular.module('colors')
             };
             return color;
         };
-        
+
         // RGB to HEX
-        
+
         self.rgbToHex = function rgbToHex(input) {
             var rgb = self.hexToRgb(input);
             var color = (rgb && rgb.length === 3) ? "#" +
@@ -45,16 +52,16 @@ angular.module('colors')
                 ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) : '';
             return color;
         };
-        
+
         // RGB to Pantone
-        
+
         self.rgbToPantone = function rgbToPantone(input) {
             var color = input;
             return color;
         };
-        
+
         // Hex to RGB
-        
+
         self.hexToRgb = function hexToRgb(hex, opacity) {
             var tint = tint | 'all';
             opacity = opacity | 1;
@@ -68,3 +75,5 @@ angular.module('colors')
         };
 
     }]);
+    
+})(window, window.angular);
